@@ -1,0 +1,9 @@
+{
+  "scripts": {
+    "watch": "reveal-md ./src/git-talk-slides.md -w --highlight-theme vs2015 --template ./src/reveal-template.html",
+    "build": "reveal-md ./src/git-talk-slides.md --highlight-theme vs2015 --template ./src/reveal-template.html --static _talk"
+  },
+  "dependencies": {
+    "reveal-md": "^5.5.1"
+  }
+}
