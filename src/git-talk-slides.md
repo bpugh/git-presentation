@@ -7,6 +7,11 @@ revealOptions:
 
 ## Level up your Git skills
 
+- How to get good at Git <!-- .element: class="fragment" -->
+- How be a git ninja/guru/rockstart <!-- .element: class="fragment" -->
+- The Git hero's journey<!-- .element: class="fragment" -->
+- Be the git hero your team deserves <!-- .element: class="fragment" -->
+
 ---
 
 ### About me
@@ -62,6 +67,37 @@ Taken from [https://commit.style/](https://commit.style/)
 
 ---
 
+``` html
+
+Rename foreign keys for AccountIntegratedInvoiceCredential
+
+The foreign keys were the only thing not automatically handled by the EF
+migrations scaffolding.
+Using `sp_rename` seems to be the recommended approach for renaming
+foreign keys in sql server. The standard entity framework approach is to
+first call `DropKey` and then `AddKey` but that seems more cumbersome
+since you have to specify the table and column as well each time.
+
+Note: I ran into an issue where I was getting an error that it couldn't
+find the key which turned out to be because if there is a dot in the
+name then it needs to be surrounded with brackets, _but_ if you include
+brackets in the new name then it will literally include them as part of
+the name.
+
+```
+
+``` html
+
+Rename foreign keys for AccountIntegratedInvoiceCredential
+The foreign keys were the only thing not automatically handled by the EF
+migrations scaffolding.
+
+test
+
+```
+
+---
+
 ## Don't be afraid to change history
 
 ---
@@ -103,18 +139,61 @@ Taken from [https://commit.style/](https://commit.style/)
 
 ---
 
+### Config settings I always recommend
+
+- `git config --global pull.rebase true`
+  - tells git to always pull with rebase instead of merge (the equivalent of `pull --rebase`).
+
+---
+
+- `git config --global fetch.prune true`
+- tells git to automatically run `git remote prune` after a `fetch`. This will clean up any local objects that no longer exist on the remote like tracking branches that have been deleted from the remote server.
+
+---
+
+- `git config --global rebase.autoStash true`
+- tells git to automatically stash when you perform a pull and then attempt to unstash them once the rebase is complete.
+
+---
+
+- `git config --global rebase.autosquash true`
+- tells git to automatically include the `--autosquash` parameter when doing a `git rebase --interactive`. You should [read more about autosquashing](https://thoughtbot.com/blog/autosquashing-git-commits) commits if you're unfamiliar with it. I use it all the time for fixing up or rewording previous commits.
+- `git config --global rebase.updateRefs true`
+
+---
+
 ### Pro tips
 
-- Make use of rerere: `git config --global rerere.enabled true`
+- [Work on two branches at once with Git worktree](https://andrewlock.net/working-on-two-git-branches-at-once-with-git-worktree/)
 - Branch a feature off of another feature branch
   - Use `git rebase --onto <newbase> <oldbase> <newhead>`
 - `git reset` is your friend
 - Remove latest 3 commits `git reset --keep head~3`
 - Reset to what’s on the remote: `git reset --hard origin/my-branch`
 - Use build server logs to time travel with your branch
+- [--update-refs](https://andrewlock.net/working-with-stacked-branches-in-git-is-easier-with-update-refs/)
+
+---
+
 - Search the reflog: `git log -g --grep=”lost commit message”`
+- `--first-parent`
+- Make use of rerere: `git config --global rerere.enabled true`
+
+---
+
+### Tools
+
+- [Git absorb](https://andrewlock.net/super-charging-git-rebase-with-git-absorb/)
+- [git-filter-repo](https://andrewlock.net/rewriting-git-history-simply-with-git-filter-repo/)
+- [git-when-merged](https://github.com/mhagger/git-when-merged) - determine merge commit of a particular commit
+
+---
+
+### Aliases
+
 - Make use of aliases
-  - `git config --global alias.cm checkout master && pull`
+  - `rem = !git fetch && git rebase origin/main`
+  - `git config --global alias.cm checkout main && pull`
   - Wipe: `wipe = !git add -A && git commit -qm 'WIPE SAVEPOINT' && git reset HEAD~1 --hard`
 
 ---
@@ -167,6 +246,7 @@ Client side hooks
 - [Flight rules for git](https://github.com/k88hudson/git-flight-rules)
 - Git log spelunking: https://mislav.net/2014/02/hidden-documentation/
 - My favorite git client: [SmartGit](https://www.syntevo.com/smartgit/)
+- [Git extension](https://gitextensions.github.io/) - a powerful free client
 - [Getting out of trouble by understanding Git](https://www.youtube.com/watch?v=sevc6668cQ0)
 
 <style>
