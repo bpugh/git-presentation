@@ -41,9 +41,10 @@ revealOptions:
 
 ## What does a good commit look like?
 
+Taken from [https://commit.style/](https://commit.style/)
+
 ![commit message format](commit-message-style.png)
 
-Taken from [https://commit.style/](https://commit.style/)
 
 ---
 
@@ -52,24 +53,29 @@ Taken from [https://commit.style/](https://commit.style/)
 - Should answer “Why?”
 - How does it address the issue?
 - Are there any potential side effects?
-
-#### TIPS
-
-- Use a .gitmessage Template
-- Use a git client that highlights proper formatting or supports templates
-- Use a git hook to automatically insert ticket number
-- Configure git text editor and run `git commit`
-- Avoid `git commit -m "message"`
+- What issues did you have solve, errors, tradeoffs?
 
 ---
 
 ![commit example screenshot](login-redirect-commit-example.png)
 
+```
+Short one line title
+
+Longer description of what the change
+does (if the title isn’t enough).
+
+An explanation of why the change is
+being made.
+
+Perhaps a discussion of context and/or
+alternatives that were considered.
+```
+
 ---
 
-``` html
-
-Rename foreign keys for AccountIntegratedInvoiceCredential
+``` markdown
+Rename foreign keys for `CustomerOrders`
 
 The foreign keys were the only thing not automatically handled by the EF
 migrations scaffolding.
@@ -78,23 +84,42 @@ foreign keys in sql server. The standard entity framework approach is to
 first call `DropKey` and then `AddKey` but that seems more cumbersome
 since you have to specify the table and column as well each time.
 
-Note: I ran into an issue where I was getting an error that it couldn't
-find the key which turned out to be because if there is a dot in the
-name then it needs to be surrounded with brackets, _but_ if you include
+Note, I ran into an issue where I was getting a "No item by the name of"
+[error][1] for the key which turned out to be because if there is a dot in
+the name then it needs to be surrounded with brackets, _but_ if you include
 brackets in the new name then it will literally include them as part of
-the name.
+the name. ¯\_(ツ)_/¯
 
+work-item: #123
+
+[1]: https://stackoverflow.com/a/58287867/1715138
 ```
 
-``` html
+---
 
-Rename foreign keys for AccountIntegratedInvoiceCredential
-The foreign keys were the only thing not automatically handled by the EF
-migrations scaffolding.
+#### TIPS
 
-test
+- Use a .gitmessage [Template](https://www.reinhardt.io/2021/06/03/creating-a-custom-git-commit-template.html)
+- Use a git client that highlights proper formatting or supports templates
+- Use a git hook to automatically insert ticket number
+- Configure git text editor and run `git commit`
+  - `git config --global core.editor "code --wait"`
+- Avoid `git commit -m "message"`
 
-```
+---
+
+## Git blame
+
+![gitlens screenshot](gitlens-screenshot.png)
+
+---
+
+## Git pickaxe
+
+* `$ git log --grep='Commit contents'`
+* `$ git log -S 'Diff contents'`
+
+![gitextensions search](gitextensions-search.png)
 
 ---
 
@@ -104,9 +129,10 @@ test
 
 ### Rebase is your friend
 
-- Interactive rebase allows cleaning up your commits by editing messages, combining, splitting, removing, reordering
-- Pull with rebase prevents trivial merge commits
-- Use rebase instead of merge to bring your branch up to date with master for a much cleaner and easier to follow
+- Pull with rebase prevents trivial merge commits <!-- .element: class="fragment" -->
+- &shy;<!-- .element: class="fragment" --> `git config --global pull.rebase true` 
+- Use rebase instead of merge to bring your branch up to date with master for a much cleaner and easier to follow log<!-- .element: class="fragment" -->
+- Interactive rebase allows cleaning up your commits by editing messages, combining, splitting, removing, reordering <!-- .element: class="fragment" -->
 
 ---
 
@@ -115,6 +141,10 @@ test
 ---
 
 <img class="r-stretch" src="./nice-graph-screenshot.png" alt="nice graph screenshot">
+
+---
+
+![smart git first parent](first-parent-log.png)
 
 ---
 
@@ -135,7 +165,17 @@ test
 - Even dangling commits will remain in repo for at least 2 weeks
 - Can be used safely if you’re the only one working on a branch
 - Can even be used on a shared feature branch if you communicate effectively
-- Use `git push --force-with-lease`
+
+---
+
+### Safest way to force push
+
+
+``` bash
+git push --force-with-lease --force-if-includes
+```
+
+- Configure branch policies or protected branches <!-- .element: class="fragment" -->
 
 ---
 
@@ -158,18 +198,19 @@ test
 
 - `git config --global rebase.autosquash true`
 - tells git to automatically include the `--autosquash` parameter when doing a `git rebase --interactive`. You should [read more about autosquashing](https://thoughtbot.com/blog/autosquashing-git-commits) commits if you're unfamiliar with it. I use it all the time for fixing up or rewording previous commits.
-- `git config --global rebase.updateRefs true`
 
+---
+- `git config --global --add --bool push.autoSetupRemote true`
 ---
 
 ### Pro tips
 
 - [Work on two branches at once with Git worktree](https://andrewlock.net/working-on-two-git-branches-at-once-with-git-worktree/)
-- Branch a feature off of another feature branch
+- Branch a feature off of another feature branch (Stacked branches)
   - Use `git rebase --onto <newbase> <oldbase> <newhead>`
 - `git reset` is your friend
 - Remove latest 3 commits `git reset --keep head~3`
-- Reset to what’s on the remote: `git reset --hard origin/my-branch`
+- Reset to what’s on the remote: `git reset --keep origin/my-branch`
 - Use build server logs to time travel with your branch
 - [--update-refs](https://andrewlock.net/working-with-stacked-branches-in-git-is-easier-with-update-refs/)
 
