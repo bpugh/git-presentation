@@ -27,6 +27,7 @@ revealOptions:
 ## Get more out of Git
 
 ---
+
 * Kept forever <!-- .element: class="fragment" -->
 * Always up to date <!-- .element: class="fragment" -->
 * Extremely Searchable <!-- .element: class="fragment" -->
@@ -239,6 +240,7 @@ git push --force-with-lease --force-if-includes
 ### Git hooks
 
 Client side hooks
+https://github.com/bpugh/dotfiles/tree/master/git-hooks
 
 - applypatch-msg
 - post-applypatch
