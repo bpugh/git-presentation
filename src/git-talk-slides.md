@@ -24,6 +24,23 @@ revealOptions:
 
 ---
 
+## Get more out of Git
+
+---
+* Kept forever <!-- .element: class="fragment" -->
+* Always up to date <!-- .element: class="fragment" -->
+* Extremely Searchable <!-- .element: class="fragment" -->
+
+---
+
+## Git searching
+
+* `$ git log --grep='Commit contents'`
+* `$ git log -S 'Diff contents'`
+
+![gitextensions search](gitextensions-search.png)
+
+---
 ### Mindfully crafted commit messages
 
 ---
@@ -55,22 +72,7 @@ Taken from [https://commit.style/](https://commit.style/)
 - Are there any potential side effects?
 - What issues did you have solve, errors, tradeoffs?
 
----
 
-![commit example screenshot](login-redirect-commit-example.png)
-
-```
-Short one line title
-
-Longer description of what the change
-does (if the title isn’t enough).
-
-An explanation of why the change is
-being made.
-
-Perhaps a discussion of context and/or
-alternatives that were considered.
-```
 
 ---
 
@@ -111,15 +113,6 @@ work-item: #123
 ## Git blame
 
 ![gitlens screenshot](gitlens-screenshot.png)
-
----
-
-## Git pickaxe
-
-* `$ git log --grep='Commit contents'`
-* `$ git log -S 'Diff contents'`
-
-![gitextensions search](gitextensions-search.png)
 
 ---
 
